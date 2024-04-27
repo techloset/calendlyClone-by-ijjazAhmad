@@ -1,9 +1,10 @@
-// store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import timeSlice from "./slices/timeSlice";
+import auth from "./slices/auth";
 
 const store = configureStore({
   reducer: {
+    auth:auth,
     time: timeSlice,
   },
 });

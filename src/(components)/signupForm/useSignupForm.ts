@@ -2,43 +2,30 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSchema } from "@/constants/ValidationSchema/FormSchema";
-import Link from "next/link";
-import { URL } from "@/constants/SiteUrl";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import PrimaryBtn from "../button/PrimaryBtn";
-import InputZ from "../formInputs/InputZ";
-
-export interface FormData {
-  email: string;
-  fullname: string;
-  username: string;
-  password: string;
-}
+import { singnupUser } from "@/constants/types/allTypes";
+import { useDispatch } from "react-redux";
+import { signupFun } from "@/store/slices/auth";
 export const useSignupForm = () => {
   const [loading, setisLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<singnupUser>({
     resolver: zodResolver(userSchema),
   });
 
-  const onSubmit = async (value: FormData) => {
+  const onSubmit = async (value: singnupUser) => {
     try {
       setisLoading(true);
-      const response = await axios.post(`${URL}/api/user`, {
-        email: value.email,
-        fullname: value.fullname,
-        username: value.username,
-        password: value.password,
-      });
-      toast.success(`${response.data.message}`);
+      await dispatch(signupFun(value) as any);
       reset();
       setisLoading(false);
       router.push("/signin");

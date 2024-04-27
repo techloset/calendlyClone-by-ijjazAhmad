@@ -2,39 +2,35 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSigninSchema } from "@/constants/ValidationSchema/FormSchema";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+// import { useDispatch } from "react-redux";
+import { signinFun } from "@/store/slices/auth";
+import { singnInUser } from "@/constants/types/allTypes";
+import { useDispatch } from "react-redux";
 import { signIn } from "next-auth/react";
-interface FormData {
-  email: string;
-  password: string;
-}
+import toast from "react-hot-toast";
+
 export const useSignin = () => {
   const [loading, setisLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<singnInUser>({
     resolver: zodResolver(userSigninSchema),
   });
 
-  const onSubmit = async (value: FormData) => {
-    setisLoading(true);
-    const signinData = await signIn("credentials", {
-      email: value.email,
-      password: value.password,
-      redirect: false,
-    });
-    if (signinData?.error) {
-      toast.error(`${signinData.error}`);
-      setisLoading(false);
-    } else {
-      toast.success("User login successfuly");
-      setisLoading(false);
-      router.push("/");
+  const onSubmit = async (value: singnInUser) => {
+    try {
+      setisLoading(true);
+      await dispatch(signinFun(value) as any)
+       setisLoading(false);
+       router.push("/");
+    } catch (error) {
+      toast.error("error")
     }
   };
 

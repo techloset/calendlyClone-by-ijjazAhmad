@@ -4,7 +4,12 @@ export type userType = {
   password: String;
 };
 export type singnInUser = {
-  id: String;
   email: String;
   password: String;
 };
+export type singnupUser ={
+  email: string;
+  fullname: string;
+  username: string;
+  password: string;
+}
