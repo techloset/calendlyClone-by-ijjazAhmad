@@ -1,20 +1,16 @@
 import prisma from "@/config/prisma";
-import { availabilitySchema } from "@/constants/ValidationSchema/availabilitySchema";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { startHour, endHour, days, userName } =
-      availabilitySchema.parse(body);
-    console.log("🚀 ~ POST ~ body:", startHour, endHour, days, userName);
-
+    const { startHour, endHour, days,userId} =body
     const availability = await prisma.availability.create({
       data: {
         startHour: startHour,
         endHour: endHour,
         days: days,
-        userName: userName,
+        userId: userId,
       },
     });
     return NextResponse.json(
@@ -31,7 +27,11 @@ export async function POST(req: Request) {
 
 export async function GET(req: NextRequest) {
   try {
-    const availability = await prisma.availability.findMany();
+    const availability = await prisma.availability.findMany({
+      include:{
+        user:true
+      }
+    });
 
     if (!availability) {
       return NextResponse.json(
@@ -39,7 +39,6 @@ export async function GET(req: NextRequest) {
         { status: 404 }
       );
     }
-
     return NextResponse.json(
       {
         message: "User's availability retrieved successfully",
@@ -57,9 +56,9 @@ export async function GET(req: NextRequest) {
 }
 export async function PUT(req: NextRequest) {
   try {
-    const { userName } = await req.json();
+    const { id } = await req.json();
     const availability = await prisma.availability.findUnique({
-      where: { userName: userName },
+      where: { id: id },
     });
 
     if (!availability) {

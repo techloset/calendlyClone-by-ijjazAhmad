@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { URL } from "@/constants/SiteUrl";
 import { getSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { setAvailabilityFun } from "@/store/slices/availability";
 export const daysName: string[] = [
   "Sunday",
   "Monday",
@@ -14,32 +14,34 @@ export const daysName: string[] = [
   "Friday",
   "Saturday",
 ];
+
 type hoursType = {
-  startHour: string;
-  endHour: string;
+  startHour: number;
+  endHour: number;
 };
 
 const initialState: hoursType = {
-  startHour: "",
-  endHour: "",
+  startHour: 0,
+  endHour: 0,
 };
 export const useSetAvailability = () => {
   const [state, setstate] = useState(initialState);
   const [days, setDays] = useState<string[]>([]);
   const [loading, setisLoading] = useState(false);
-  const [userName, setUserName] = useState<string | undefined>("");
+  const [id, setId] = useState<string | undefined>("");
   const router = useRouter();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     getueser();
   }, []);
   const getueser = async () => {
     const session = await getSession();
-    const username = session?.user?.username;
-    setUserName(username);
+    const id = session?.user?.id;
+    setId(id);
   };
-  const handelChange = (e: any) => {
-    setstate((s) => ({ ...s, [e.target.name]: e.target.value }));
+  const handelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setstate((s) => ({ ...s, [e.target.name]: parseInt(e.target.value) }));
+    
   };
   const handleDays = (e: React.ChangeEvent<HTMLInputElement>) => {
     const day = e.target.name;
@@ -57,36 +59,18 @@ export const useSetAvailability = () => {
     if (!days) {
       return toast.error("Plz select day");
     }
-
     setisLoading(true);
-    await axios
-      .post(`${URL}/api/availability`, {
-        startHour: startHour,
-        endHour: endHour,
-        days: days,
-        userName: userName,
-      })
-      .then(function (response) {
-        toast.success(`${response.data.message}`);
-        setisLoading(false);
-        router.push("/");
-      })
-      .catch(function (error) {
-        console.log(error.response.data.message);
-        toast.error(`${error.response.data.message}`);
-        setisLoading(false);
-      });
+    await dispatch(setAvailabilityFun({ startHour, endHour,days,id }) as any);
+    try {
+      setisLoading(false);
+      router.push("/");
+    } catch (error) {
+      setisLoading(false);
+    }
   };
 
   return {
-    state,
-    setstate,
-    days,
-    setDays,
     loading,
-    setisLoading,
-    userName,
-    setUserName,
     handelChange,
     handleDays,
     handelSubmit,

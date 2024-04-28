@@ -43,6 +43,7 @@ export default function SignupForm() {
             {...register("password")}
             placeholder="password"
             type="password"
+            autoComplete="off"
           />
           {errors.password && (
             <p className="text-danger text-[10px] font-bold">

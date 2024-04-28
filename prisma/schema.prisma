@@ -13,16 +13,18 @@ model User {
   fullname  String
   username  String   @unique
   password  String
+  availability Availability @relation(fields: [id], references: [userId])
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 }
 
-model availability {
+model Availability {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  startHour String
-  endHour   String
+  startHour Int
+  endHour   Int
   days      String[]
-  userName  String @unique
+  userId String @map("_userId") @db.ObjectId @unique
+  user User? 
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 }

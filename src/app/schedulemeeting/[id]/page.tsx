@@ -11,32 +11,38 @@ type availabilityProps = {
   startHour: number;
   endHour: number;
   days: String[];
-  userName: String;
+  userId: string;
   createdAt: String;
   updateAt: String;
+  user: {
+    fullname:string,
+  };
 };
 const initialState: availabilityProps = {
   id: "",
   startHour: 0,
   endHour: 0,
-  days: [],
-  userName: "",
+  days: [""],
+  userId: "",
   createdAt: "",
   updateAt: "",
+  user: {
+    fullname:""
+  },
 };
 export default function page() {
   const [loading, setisLoading] = useState(false);
   const [paramUserAvailability, setParamUserAvailability] =
     useState(initialState);
-  const name = useParams();
-  const username: any = name.name;
+  const path = useParams();
+  const id: any = path.id;
   const Router = useRouter();
   const onSubmit = async () => {
     try {
       const response = await axios.get(`${URL}/api/availability`);
       const data = response.data.data;
       const userAvailabarr = await data.filter(
-        (value: any) => value.userName == username
+        (value: any) => value.userId == id
       );
       const userAvailabObj = userAvailabarr[0];
       setParamUserAvailability(userAvailabObj);
@@ -51,13 +57,13 @@ export default function page() {
   return (
     <div className="flex flex-wrap justify-center items-center flex-col w-full">
       {!loading ? (
-        <MeetingPromptCard name={name.name} onClick={onSubmit} />
+        <MeetingPromptCard name={path.id} onClick={onSubmit} />
       ) : (
         <ScheduleMeeting
           days={paramUserAvailability.days}
           endHour={paramUserAvailability.endHour}
           startHour={paramUserAvailability.startHour}
-          username={`${name.userName}`}
+          fullname={paramUserAvailability.user.fullname}
         />
       )}
     </div>

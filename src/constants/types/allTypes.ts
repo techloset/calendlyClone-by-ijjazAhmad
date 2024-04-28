@@ -13,3 +13,10 @@ export type singnupUser ={
   username: string;
   password: string;
 }
+
+export type SetAvailabilityProps={
+  startHour: number;
+  endHour: number;
+  days: string[];
+  id:string | undefined
+}

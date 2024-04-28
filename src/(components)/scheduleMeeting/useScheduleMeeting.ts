@@ -1,18 +1,20 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { arrowLeft, calendly, clock, world } from "../../../public/images";
-import Link from "next/link";
-import Calendar, { TileClassNameFunc, TileDisabledFunc } from "react-calendar";
+import { useEffect, useState } from "react";
+import { TileDisabledFunc } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useParams } from "next/navigation";
 type ValuePiece = Date | null;
-
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 type useScheduleMeetingProps = {
   days: String[];
+  startHour: number;
+  endHour: number;
 };
-export const useScheduleMeeting = ({ days }: useScheduleMeetingProps) => {
+export const useScheduleMeeting = ({
+  days,
+  startHour,
+  endHour,
+}: useScheduleMeetingProps) => {
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [timeSlices, setTimeSlices] = useState<string[]>([]);
   const [value, onChange] = useState<Value>(new Date());
   const allowedDays = days;
   const handleButtonClick = (time: string) => {
@@ -34,37 +36,30 @@ export const useScheduleMeeting = ({ days }: useScheduleMeetingProps) => {
     return !allowedDays.includes(dayName);
   };
   const padZero = (num: number) => {
-    return num < 10 ? `0${num}` : num;
+    return num < 10 ? num : num;
   };
   const generateSlices = (startHour: number, endHour: number) => {
-    console.log("🚀 ~ generateSlices ~ endHour:", endHour);
-    console.log("🚀 ~ generateSlices ~ startHour:", startHour >= endHour);
-    const slices = [];
+    const slices: string[] = [];
 
-    console.log("🚀 ~ generateSlices ~ padZero:", padZero(startHour));
-    for (let hour = startHour; hour >= endHour; hour++) {
-      console.log("🚀 ~ generateSlices ~ hour:", hour);
+    for (let hour = startHour; hour <= endHour; hour++) {
       slices.push(`${padZero(hour)}:00`);
       if (hour !== endHour) {
-        console.log("🚀 ~ generateSlices ~ padZero:", padZero);
         slices.push(`${padZero(hour)}:30`);
       }
     }
-    console.log("🚀 ~ generateSlices ~ slices:", slices);
+    setTimeSlices(slices);
   };
-  // useEffect(()=>{
-  //   const slices = generateSlices(startHour, endHour)
-  //   console.log("🚀 ~ useEffect ~ slices:", slices)
-  // },[startHour,endHour])
+  useEffect(() => {
+    generateSlices(startHour, endHour);
+  }, [startHour, endHour]);
 
   return {
+    timeSlices,
     selectedTime,
-    setSelectedTime,
     value,
     onChange,
     allowedDays,
     handleButtonClick,
     tileDisabled,
-    generateSlices,
   };
 };

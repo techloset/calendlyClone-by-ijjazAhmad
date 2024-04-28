@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   arrowLeft,
   calender,
@@ -12,7 +12,7 @@ import Link from "next/link";
 import MeetingConfirm from "../../(components)/meetingConfirm/MeetingConfirm";
 import PrimaryBtn from "@/(components)/button/PrimaryBtn";
 import { useSchedulerDetail } from "./useSchedulerDetail";
-export default function SchedulerDetail() {
+export default  function SchedulerDetail() {
   const { confirm, loading, state, handelChange, handleSubmit } =
     useSchedulerDetail();
   return (
@@ -25,7 +25,7 @@ export default function SchedulerDetail() {
             className="w-[105px] h-[105px] absolute top-0 right-0"
           />
           <div className="w-[35%] border-r border-borderClr-1 p-8">
-            <Link href={"/schedulemeet"}>
+            <Link href={`schedulemeeting`}>
               {" "}
               <Image
                 src={arrowLeft}

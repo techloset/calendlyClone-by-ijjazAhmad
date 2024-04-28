@@ -15,15 +15,7 @@ export const daysName: string[] = [
   "Friday",
   "Saturday",
 ];
-type hoursType = {
-  startHour: string;
-  endHour: string;
-};
 
-const initialState: hoursType = {
-  startHour: "",
-  endHour: "",
-};
 export default function SetAvailability() {
   const { loading, handelChange, handleDays, handelSubmit } =
     useSetAvailability();

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const username = session?.user.username;
+  const id = session?.user.id;
   if (!session) {
     redirect("/signin");
   }
@@ -27,7 +27,7 @@ export default async function Home() {
           <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-purple-600 group-hover:h-full opacity-90"></span>
           <span className="relative group-hover:text-white">Button Text</span>
         </Link> */}
-        <AvailabilityTable name={"Add Event"} path={`/${username}`} />
+        <AvailabilityTable name={"Add Event"} path={`schedulemeeting/${id}`} />
       </DefaultLayout>
     </>
   );

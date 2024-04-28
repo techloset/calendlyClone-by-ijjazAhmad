@@ -6,22 +6,29 @@ import Link from "next/link";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useScheduleMeeting } from "./useScheduleMeeting";
+import TimeSlotBtn from "../button/TimeSlotBtn";
 type ValuePiece = Date | null;
 type ScheduleMeetingProps = {
   days: String[];
   startHour: number;
   endHour: number;
-  username: string | string[];
+  fullname: string;
 };
 
 export default function ScheduleMeeting({
   days,
   startHour,
   endHour,
-  username,
+  fullname,
 }: ScheduleMeetingProps) {
-  const { value, onChange, handleButtonClick, tileDisabled, generateSlices } =
-    useScheduleMeeting({ days });
+  const {
+    value,
+    timeSlices,
+    selectedTime,
+    onChange,
+    handleButtonClick,
+    tileDisabled,
+  } = useScheduleMeeting({ days, startHour, endHour });
   return (
     <div className="flex flex-wrap justify-center items-center flex-col w-full">
       <div className="relative flex flex-wrap  border border-borderClr-1 shadow-2 rounded-md w-[95%] h-[90vh] sm:max-w-[1060px] sm:h-[700px] mt-[66px] mb-[30px]">
@@ -31,12 +38,9 @@ export default function ScheduleMeeting({
           className="w-[105px] h-[105px] absolute top-0 right-0"
         />
         <div className="w-[35%] border-r border-borderClr-1 p-8">
-          <p className="text-lightBlack font-semibold text-[14px] ">{`${username}`}</p>
-          <button
-            type="button"
-            onClick={() => generateSlices(startHour, endHour)}
-            className="text-lightBlack font-semibold text-[14px] "
-          >{`${username}`}</button>
+          <p className="text-lightBlack font-semibold text-[14px] ">
+            {fullname}
+          </p>
           <p className="text-black font-black text-2xl mb-3">
             30 Minute Meeting
           </p>
@@ -65,7 +69,7 @@ export default function ScheduleMeeting({
                 Pakistan, Maldives Time
               </p>
               <Link
-                href={"/schedulerdetail"}
+                href={`/schedulerdetail/${selectedTime+value}`}
                 className="absolute bottom-4 left-[37%]  text-white-default bg-primary rounded-[40px] px-[17px] py-[11px]"
               >
                 Next
@@ -76,14 +80,13 @@ export default function ScheduleMeeting({
                 Wednesday, March 27
               </p>
               <div className="overflow-y-auto h-[572px] w-[250px] ">
-                <button
-                  className=" text-primary font-bold text-[14px] border border-primaryII  rounded-[4px] mb-[10px] w-[208px] h-[52px]  focus:bg-primary focus:text-white-default"
-                  onClick={() => handleButtonClick(`${startHour}:00`)}
-                >{`${startHour}:00`}</button>
-                <button
-                  className=" text-primary font-bold text-[14px] border border-primaryII  rounded-[4px] mb-[10px] w-[208px] h-[52px] focus:bg-primary focus:text-white-default"
-                  onClick={() => handleButtonClick(`${endHour}:00`)}
-                >{`${endHour}:00`}</button>
+                {timeSlices.map((timeSlice, i) => (
+                  <TimeSlotBtn
+                    key={i}
+                    label={timeSlice}
+                    onClick={() => handleButtonClick(timeSlice)}
+                  />
+                ))}
               </div>
             </div>
           </div>
