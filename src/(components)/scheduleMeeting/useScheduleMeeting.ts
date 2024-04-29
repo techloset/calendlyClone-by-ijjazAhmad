@@ -16,6 +16,11 @@ export const useScheduleMeeting = ({
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [timeSlices, setTimeSlices] = useState<string[]>([]);
   const [value, onChange] = useState<Value>(new Date());
+  console.log("🚀 ~ value:", value)
+  const formatDate = (date: any) => {
+    const options = { weekday: "long", month: "long", day: "2-digit" };
+    return date.toLocaleDateString("en-US", options);
+  };
   const allowedDays = days;
   const handleButtonClick = (time: string) => {
     setSelectedTime(time);
@@ -57,6 +62,7 @@ export const useScheduleMeeting = ({
     timeSlices,
     selectedTime,
     value,
+    formatDate,
     onChange,
     allowedDays,
     handleButtonClick,

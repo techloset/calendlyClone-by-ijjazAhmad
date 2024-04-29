@@ -27,7 +27,7 @@ const initialState: availabilityProps = {
   createdAt: "",
   updateAt: "",
   user: {
-    fullname:""
+    fullname:"" 
   },
 };
 export default function page() {
@@ -64,6 +64,7 @@ export default function page() {
           endHour={paramUserAvailability.endHour}
           startHour={paramUserAvailability.startHour}
           fullname={paramUserAvailability.user.fullname}
+          path={id}
         />
       )}
     </div>

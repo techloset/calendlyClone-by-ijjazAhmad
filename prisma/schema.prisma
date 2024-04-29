@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  fullname  String
-  username  String   @unique
-  password  String
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  email        String       @unique
+  fullname     String
+  username     String       @unique
+  password     String
   availability Availability @relation(fields: [id], references: [userId])
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
+   meeting      Meeting[]
+  createdAt    DateTime     @default(now())
+  updateAt     DateTime     @updatedAt
 }
 
 model Availability {
@@ -23,8 +24,22 @@ model Availability {
   startHour Int
   endHour   Int
   days      String[]
-  userId String @map("_userId") @db.ObjectId @unique
-  user User? 
+  userId    String   @unique @map("_userId") @db.ObjectId
+  user      User?
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+
+model Meeting {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  schedulerEmail String
+  schedulerName String
+  description String
+  selectedTime String
+  selectedDate String
+  hostName String
+  userId    String   @unique @map("_userId") @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 }

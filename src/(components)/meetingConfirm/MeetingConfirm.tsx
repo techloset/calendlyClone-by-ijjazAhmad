@@ -2,8 +2,19 @@ import React from "react";
 import { calender, calendly, userIcon, world } from "../../../public/images";
 import Image from "next/image";
 import Link from "next/link";
-
-export default function meetingConfirm() {
+type MeetingConfirmProps = {
+  selectedTime: string | null ;
+  selectedDate: string | null ;
+  fullname: string | null ;
+};
+export default function meetingConfirm({
+  selectedTime,
+  selectedDate,
+  fullname,
+}: MeetingConfirmProps) {
+  console.log("🚀 ~ selectedTime:", selectedTime)
+  console.log("🚀 ~ selectedDate:", selectedDate)
+  console.log("🚀 ~ fullname:", fullname)
   return (
     <div className="relative flex border border-borderClr-1 shadow-2 rounded-md w-[95%] h-[90vh] sm:w-[1060px] sm:h-[700px] mt-[66px] mb-[30px]">
       <Image
@@ -17,7 +28,7 @@ export default function meetingConfirm() {
           A calender invitation has been send to your email address
         </p>
         <Link
-          href={"/"}
+          href={"#"}
           className="text-black bg-white border rounded-[40px] px-[17px] py-[11px]"
         >
           Open Invitation
@@ -29,11 +40,11 @@ export default function meetingConfirm() {
           </p>
           <p className="text-lightBlack font-bold text-[14px] mb-2 flex items-center ">
             <Image src={userIcon} alt="Logo" className="w-5 h-5 mr-1" />{" "}
-            Muhammad Talha
+            {fullname}
           </p>
           <p className="text-lightBlack font-bold text-[14px] mb-2 flex items-center ">
-            <Image src={calender} alt="Logo" className="w-5 h-5 mr-1" /> 11:00
-            am - 11:30 am, Wednesday, March 27, 2024{" "}
+            <Image src={calender} alt="Logo" className="w-5 h-5 mr-1" />{selectedTime}
+           {selectedDate}
           </p>
           <p className="text-lightBlack font-bold text-[14px] mb-2 flex items-center ">
             <Image src={world} alt="Logo" className="w-5 h-5 mr-1" /> Pakistan,

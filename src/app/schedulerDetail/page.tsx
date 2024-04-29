@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   arrowLeft,
   calender,
@@ -12,9 +12,19 @@ import Link from "next/link";
 import MeetingConfirm from "../../(components)/meetingConfirm/MeetingConfirm";
 import PrimaryBtn from "@/(components)/button/PrimaryBtn";
 import { useSchedulerDetail } from "./useSchedulerDetail";
-export default  function SchedulerDetail() {
-  const { confirm, loading, state, handelChange, handleSubmit } =
-    useSchedulerDetail();
+export default function SchedulerDetail() {
+  const {
+    confirm,
+    loading,
+    state,
+    selectedTime,
+    selectedDate,
+    fullname,
+    id,
+    handelChange,
+    handleSubmit,
+  } = useSchedulerDetail();
+
   return (
     <div className="flex flex-wrap justify-center items-center flex-col w-full">
       {!confirm ? (
@@ -25,7 +35,7 @@ export default  function SchedulerDetail() {
             className="w-[105px] h-[105px] absolute top-0 right-0"
           />
           <div className="w-[35%] border-r border-borderClr-1 p-8">
-            <Link href={`schedulemeeting`}>
+            <Link href={`schedulemeeting/${id}`}>
               {" "}
               <Image
                 src={arrowLeft}
@@ -34,7 +44,7 @@ export default  function SchedulerDetail() {
               />
             </Link>
             <p className="text-lightBlack font-semibold text-[14px] ">
-              Muhammad Talha
+              {fullname}
             </p>
             <p className="text-black font-black text-2xl mb-4">
               30 Minute Meeting
@@ -44,8 +54,8 @@ export default  function SchedulerDetail() {
               30 min
             </p>
             <p className="text-lightBlack font-bold text-[14px] mb-2 flex items-center ">
-              <Image src={calender} alt="..." className="w-5 h-5 mr-1" /> 11:00
-              am - 11:30 am, Wednesday, March 27, 2024{" "}
+              <Image src={calender} alt="..." className="w-5 h-5 mr-1" />
+              {selectedTime} , {selectedDate}
             </p>
             <p className="text-lightBlack font-bold text-[14px] mb-2 flex items-center ">
               <Image src={world} alt="..." className="w-5 h-5 mr-1" /> Pakistan,
@@ -68,8 +78,8 @@ export default  function SchedulerDetail() {
                   className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
                   style={{ outline: "none" }}
                   type="text"
-                  name="fullName"
-                  value={state.fullName}
+                  name="schedulerName"
+                  value={state.schedulerName}
                   onChange={(e) => handelChange(e)}
                   placeholder=""
                 />
@@ -80,8 +90,8 @@ export default  function SchedulerDetail() {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  value={state.email}
+                  name="schedulerEmail"
+                  value={state.schedulerEmail}
                   className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
                   style={{ outline: "none" }}
                   onChange={(e) => handelChange(e)}
@@ -116,7 +126,7 @@ export default  function SchedulerDetail() {
           </div>
         </div>
       ) : (
-        <MeetingConfirm />
+        <MeetingConfirm selectedTime={selectedTime} selectedDate={selectedDate} fullname={fullname} />
       )}
     </div>
   );

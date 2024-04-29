@@ -13,6 +13,7 @@ type ScheduleMeetingProps = {
   startHour: number;
   endHour: number;
   fullname: string;
+  path: string;
 };
 
 export default function ScheduleMeeting({
@@ -20,15 +21,28 @@ export default function ScheduleMeeting({
   startHour,
   endHour,
   fullname,
+  path,
 }: ScheduleMeetingProps) {
   const {
     value,
     timeSlices,
     selectedTime,
+    formatDate,
     onChange,
     handleButtonClick,
     tileDisabled,
   } = useScheduleMeeting({ days, startHour, endHour });
+  
+  const paramData = {
+    selectedTime: selectedTime,
+    selectedDate: formatDate(value),
+    fullname: fullname,
+    id: path,
+  };
+  console.log("🚀 ~ paramData.path:", path)
+  console.log("🚀 ~ paramData.fullname:",fullname)
+  console.log("🚀 ~ paramData.value:", formatDate(value))
+  console.log("🚀 ~ paramData.selectedTime:", selectedTime)
   return (
     <div className="flex flex-wrap justify-center items-center flex-col w-full">
       <div className="relative flex flex-wrap  border border-borderClr-1 shadow-2 rounded-md w-[95%] h-[90vh] sm:max-w-[1060px] sm:h-[700px] mt-[66px] mb-[30px]">
@@ -69,7 +83,7 @@ export default function ScheduleMeeting({
                 Pakistan, Maldives Time
               </p>
               <Link
-                href={`/schedulerdetail/${selectedTime+value}`}
+                href={{ pathname: "/schedulerdetail", query: paramData as any }}
                 className="absolute bottom-4 left-[37%]  text-white-default bg-primary rounded-[40px] px-[17px] py-[11px]"
               >
                 Next

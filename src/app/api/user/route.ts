@@ -1,9 +1,9 @@
 import prisma from "@/config/prisma";
 import { userSchema } from "@/constants/ValidationSchema/FormSchema";
 import { hash } from "bcrypt";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { email, fullname, username, password } = userSchema.parse(body);
@@ -39,6 +39,31 @@ export async function POST(req: Request) {
       { user: rest, message: "User created successfuly" },
       { status: 201 }
     );
+  } catch (error) {
+    return NextResponse.json(
+      { message: "something went wrong" },
+      { status: 500 }
+    );
+  }
+}
+export async function GET(req: NextRequest) {
+  try {
+    const id = await req.nextUrl.searchParams.get("id")
+    if (id === null) {
+      return NextResponse.json(
+        { message: "User ID is missing in the URL" },
+        { status: 400 }
+      );
+    }
+  
+    const currentUser = await prisma.user.findUnique({
+      where: { id: id },
+      include: {
+        meeting: true,
+        availability: true,
+      },
+    });
+    return NextResponse.json({ user: currentUser });
   } catch (error) {
     return NextResponse.json(
       { message: "something went wrong" },
