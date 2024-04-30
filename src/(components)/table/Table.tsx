@@ -11,7 +11,7 @@ type Props = {
   name: string;
   path: string;
 };
-export default function AvailabilityTable({ name, path }: Props) {
+export default function Table({ name, path }: Props) {
   const meeting = useSelector((state: RootState) => state.user.meeting);
 
   const dispatch = useDispatch();

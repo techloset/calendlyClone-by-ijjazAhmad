@@ -4,11 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userSigninSchema } from "@/constants/ValidationSchema/FormSchema";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
 import { signinFun } from "@/store/slices/auth";
 import { singnInUser } from "@/constants/types/allTypes";
 import { useDispatch } from "react-redux";
-import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 
 export const useSignin = () => {

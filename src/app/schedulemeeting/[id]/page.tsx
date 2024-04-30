@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { URL } from "@/constants/SiteUrl";
+import { URL } from "@/constants/siteUrl";
 import MeetingPromptCard from "@/(components)/meetingPromptCard/MeetingPromptCard";
 import ScheduleMeeting from "@/(components)/scheduleMeeting/ScheduleMeeting";
 type availabilityProps = {
@@ -16,6 +16,7 @@ type availabilityProps = {
   updateAt: String;
   user: {
     fullname:string,
+    email:string,
   };
 };
 const initialState: availabilityProps = {
@@ -27,7 +28,8 @@ const initialState: availabilityProps = {
   createdAt: "",
   updateAt: "",
   user: {
-    fullname:"" 
+    fullname:"" ,
+    email:"",
   },
 };
 export default function page() {
@@ -64,6 +66,7 @@ export default function page() {
           endHour={paramUserAvailability.endHour}
           startHour={paramUserAvailability.startHour}
           fullname={paramUserAvailability.user.fullname}
+          hostEmail={paramUserAvailability.user.email}
           path={id}
         />
       )}

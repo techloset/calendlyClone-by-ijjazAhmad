@@ -1,4 +1,4 @@
-import { URL } from "@/constants/SiteUrl";
+import { URL } from "@/constants/siteUrl";
 import { SetAvailabilityProps, SetMeetingProps } from "@/constants/types/allTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 export const setMeetingFun = createAsyncThunk(
   "meeting/create",
   async ({schedulerEmail,schedulerName,description,selectedTime,selectedDate,fullname,id}: SetMeetingProps) => {
-    console.log("🚀 ~ id:", id)
     try {
       const response = await axios.post(`${URL}/api/meeting`, {
         schedulerEmail,

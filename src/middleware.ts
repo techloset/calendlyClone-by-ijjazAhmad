@@ -13,7 +13,7 @@ export const config = {
     "/schedulerdetail",
     "/availability",
     "/schedulemeet",
-    "/settings",
+    "/analytics",
     "/setavailability",
   ],
 };

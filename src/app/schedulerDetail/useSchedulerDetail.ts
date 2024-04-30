@@ -1,4 +1,5 @@
 "use client";
+import { sendMailFun } from "@/constants/sendMailFun";
 import { setMeetingFun } from "@/store/slices/meeting";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -19,10 +20,12 @@ export const useSchedulerDetail = () => {
   const selectedDate = param.get("selectedDate");
   const fullname = param.get("fullname");
   const id = param.get("id");
+  const hostEmail = param.get("hostEmail");
   const handelChange = (e: any) => {
     setstate((s) => ({ ...s, [e.target.name]: e.target.value }));
   };
   const handleSubmit = async() => {
+    const hostName = fullname || ""
     setisLoading(true);
     const {schedulerEmail,schedulerName,description} = state
     const data = {schedulerEmail,schedulerName,description,selectedTime,selectedDate,fullname,id}
@@ -33,7 +36,9 @@ export const useSchedulerDetail = () => {
         return 
       }
       else{
-        setstate(initialState);    
+       
+        sendMailFun({schedulerEmail,schedulerName,description,selectedTime,selectedDate,hostName,hostEmail})
+        // setstate(initialState);    
         setisConfirm(true);
         setisLoading(false);
       }

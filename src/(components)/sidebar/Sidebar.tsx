@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,13 +23,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
-
-  let storedSidebarExpanded = "true";
-
-  const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
-  );
-
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
@@ -44,24 +37,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   });
-
-  useEffect(() => {
-    const keyHandler = ({ key }: KeyboardEvent) => {
-      if (!sidebarOpen || key !== "Escape") return;
-      setSidebarOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
-
-  useEffect(() => {
-    localStorage.setItem("sidebar-expanded", sidebarExpanded.toString());
-    if (sidebarExpanded) {
-      document.querySelector("body")?.classList.add("sidebar-expanded");
-    } else {
-      document.querySelector("body")?.classList.remove("sidebar-expanded");
-    }
-  }, [sidebarExpanded]);
 
   return (
     <aside
@@ -99,7 +74,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <ul className=" flex flex-col">
                 <li>
                   <Link
-                    href="/schedulemeet"
+                    href="/"
                     className={`group relative flex items-center gap-5 rounded-lg px-4 py-2 font-bold text-sm text-black duration-300 ease-in-out hover:bg-gray hover:text-primary ${
                       pathname.includes("about") && "bg-gray "
                     }`}
@@ -116,7 +91,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </li>
                 <li>
                   <Link
-                    href="/settings"
+                    href="/analytics"
                     className={`group relative flex items-center gap-5 rounded-lg px-4 py-2 font-bold text-sm text-black duration-300 ease-in-out hover:bg-gray hover:text-primary ${
                       pathname.includes("settings") && "bg-gray text-primary"
                     }`}
@@ -135,7 +110,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <ul className="bottom-0">
                 <li>
                   <Link
-                    href="/availability"
+                    href="/setavailability"
                     className={`group relative flex items-center gap-5 rounded-lg px-4 py-2 font-bold text-sm text-black duration-300 ease-in-out hover:bg-gray hover:text-primary ${
                       pathname.includes("availability") && "bg-gray "
                     }`}

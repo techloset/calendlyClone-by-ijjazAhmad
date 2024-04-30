@@ -4,8 +4,15 @@ import Image from "next/image";
 import { logo } from "../../../../public/images";
 import PrimaryBtn from "@/(components)/button/PrimaryBtn";
 import { useSignin } from "./useSignin";
-export default function SignupForm() {
+// import { redirect } from "next/navigation";
+// import { getSession } from "next-auth/react";
+
+export default  function Signin() {
   const { loading, register, handleSubmit, errors, onSubmit } = useSignin();
+  // const session = await getSession();
+  // if (!session) {
+  //   redirect("/");
+  // }
   return (
     <div className="flex justify-center items-center flex-col w-full">
       <Image src={logo} alt="Logo" className="w-[182px] h-[48px] mt-[51px]" />

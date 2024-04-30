@@ -1,4 +1,4 @@
-import { URL } from "@/constants/SiteUrl";
+import { URL } from "@/constants/siteUrl";
 import { singnInUser, singnupUser } from "@/constants/types/allTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";

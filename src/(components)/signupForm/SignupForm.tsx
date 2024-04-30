@@ -2,9 +2,15 @@
 import Link from "next/link";
 import PrimaryBtn from "../button/PrimaryBtn";
 import { useSignupForm } from "./useSignupForm";
+// import { redirect } from "next/navigation";
+// import { getSession } from "next-auth/react";
 
-export default function SignupForm() {
+export default  function SignupForm() {
   const { loading, onSubmit, errors, register, handleSubmit } = useSignupForm();
+  // const session = await getSession();
+  // if (!session) {
+  //   redirect("/");
+  // }
   return (
     <form className="px-[33px] mb-[33px] py-[33px] border border-borderClr-1 shadow-2 rounded-md w-[95%] sm:w-[440px] ">
       <div className="mb-[12px]">

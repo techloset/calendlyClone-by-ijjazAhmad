@@ -13,6 +13,7 @@ type ScheduleMeetingProps = {
   startHour: number;
   endHour: number;
   fullname: string;
+  hostEmail: string;
   path: string;
 };
 
@@ -22,6 +23,7 @@ export default function ScheduleMeeting({
   endHour,
   fullname,
   path,
+  hostEmail
 }: ScheduleMeetingProps) {
   const {
     value,
@@ -38,6 +40,7 @@ export default function ScheduleMeeting({
     selectedDate: formatDate(value),
     fullname: fullname,
     id: path,
+    hostEmail: hostEmail,
   };
   console.log("🚀 ~ paramData.path:", path)
   console.log("🚀 ~ paramData.fullname:",fullname)
