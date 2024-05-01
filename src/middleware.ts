@@ -9,11 +9,11 @@ export default withAuth(function middleware(req) {}, {
 export const config = {
   matcher: [
     "/",
-    "/profile",
-    "/schedulerdetail",
+    "/analytic",
     "/availability",
+    "/profile",
+    "/scheduledevents",
     "/schedulemeet",
-    "/analytics",
     "/setavailability",
   ],
 };

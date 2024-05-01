@@ -1,10 +1,10 @@
 import React from "react";
-const timeAm:number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const timePm:number[] = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+const timeAm: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const timePm: number[] = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 type TimeDropDownProps = {
   name: string;
   defaultOption: string;
-  onChange: (e:React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export default function TimeDropDown({
@@ -18,14 +18,12 @@ export default function TimeDropDown({
         <select
           className="appearance-none w-full  border-gray-300 py-2 pl-3 pr-10 border border-borderClr-2 rounded-lg text-black font-normal text-[16px] focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1"
           name={name}
-          // value={value}
           onChange={onChange}
         >
           <option value={0}>{defaultOption}</option>
           {timeAm.map((value, i) => {
             return (
               <option key={i} value={value}>
-                
                 {value}:00 am
               </option>
             );

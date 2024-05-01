@@ -46,6 +46,5 @@ export const sendMailFun = async ({
     toast.success("Email sent to owner successfully!");
   } catch (error) {
     toast.error("Error sending email to owner");
-    console.log("Error sending email:", error);
   }
 };

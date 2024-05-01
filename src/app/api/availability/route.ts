@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { startHour, endHour, days,userId} =body
+    const { startHour, endHour, days, userId } = body;
     const availability = await prisma.availability.create({
       data: {
         startHour: startHour,
@@ -28,9 +28,9 @@ export async function POST(req: Request) {
 export async function GET(req: NextRequest) {
   try {
     const availability = await prisma.availability.findMany({
-      include:{
-        user:true
-      }
+      include: {
+        user: true,
+      },
     });
 
     if (!availability) {

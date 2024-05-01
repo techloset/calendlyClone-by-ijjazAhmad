@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
-import { arrowRight } from "../../../public/images";
+import Image from "next/image";
+import { arrowRight, logo } from "../../../public/images";
 type MeetingPromptCardProps = {
   name: string | string[];
   onClick: () => void;
@@ -13,7 +13,7 @@ export default function MeetingPromptCard({
     <div className="border border-borderClr-1 shadow-2 rounded-md w-[95%] h-[80vh] sm:max-w-[1060px]  mt-[66px] mb-[30px]">
       <div className="flex justify-center  text-center mb-16">
         <div className="w-[95%] sm:w-[27%] ">
-          <p className="text-lightBlack font-bold text-xl my-7">{name}</p>
+          <Image src={logo} className="w-full my-5" alt="logo.." />
           <p className="text-lightBlack font-normal text-[14px] items-center ">
             Welcome to my scheduling page. Please follow the instructions to add
             an event to my calendar.

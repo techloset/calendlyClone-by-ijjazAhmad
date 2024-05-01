@@ -4,16 +4,23 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const {schedulerEmail,schedulerName,description,selectedTime,selectedDate,hostName,userId} =body
-    console.log("🚀 ~ POST ~ id:", userId)
+    const {
+      schedulerEmail,
+      schedulerName,
+      description,
+      selectedTime,
+      selectedDate,
+      hostName,
+      userId,
+    } = body;
     const meeting = await prisma.meeting.create({
       data: {
-        schedulerEmail:schedulerEmail ,
-        schedulerName:schedulerName ,
-        description:description ,
-        selectedTime:selectedTime ,
-        selectedDate:selectedDate ,
-        hostName:hostName,
+        schedulerEmail: schedulerEmail,
+        schedulerName: schedulerName,
+        description: description,
+        selectedTime: selectedTime,
+        selectedDate: selectedDate,
+        hostName: hostName,
         userId: userId,
       },
     });
@@ -22,11 +29,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error)
-    return NextResponse.json(
-      { message: error },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }
 export async function GET(req: Request) {
@@ -37,10 +40,6 @@ export async function GET(req: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error)
-    return NextResponse.json(
-      { message: error },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }

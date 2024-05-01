@@ -48,14 +48,14 @@ export async function POST(req: NextRequest) {
 }
 export async function GET(req: NextRequest) {
   try {
-    const id = await req.nextUrl.searchParams.get("id")
+    const id = await req.nextUrl.searchParams.get("id");
     if (id === null) {
       return NextResponse.json(
         { message: "User ID is missing in the URL" },
         { status: 400 }
       );
     }
-  
+
     const currentUser = await prisma.user.findUnique({
       where: { id: id },
       include: {

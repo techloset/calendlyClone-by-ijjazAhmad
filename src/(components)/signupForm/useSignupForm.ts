@@ -30,7 +30,6 @@ export const useSignupForm = () => {
       setisLoading(false);
       router.push("/signin");
     } catch (error: AxiosError | any) {
-      console.log(error);
       toast.error(`${error?.response?.data.message}`);
       setisLoading(false);
     }

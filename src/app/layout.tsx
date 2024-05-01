@@ -1,11 +1,9 @@
-"use client"
 // import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./Providers";
-import { Provider } from "react-redux";
-import store from "@/store/store";
+import { ReduxProvider } from "./ReduxProvider";
 const inter = Inter({ subsets: ["latin"] });
 // export const metadata: Metadata = {
 //   title: "Calendly Next App",
@@ -20,11 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider >
-        <Provider store={store}>
-          {children}
-          <Toaster />
-        </Provider>
+        <AuthProvider>
+          <ReduxProvider>
+            {children}
+            <Toaster />
+          </ReduxProvider>
         </AuthProvider>
       </body>
     </html>

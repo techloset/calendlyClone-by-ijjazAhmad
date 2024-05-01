@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { arrowDown } from "../../../public/images";
@@ -6,10 +6,8 @@ import LogoutBtn from "../button/LogoutBtn";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-
   return (
     <div className="relative">
       <Link

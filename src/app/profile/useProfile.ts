@@ -29,8 +29,6 @@ export const useProfile = () => {
 
   const handleSubmit = () => {
     setisLoading(true);
-    console.log(state);
-
     setisLoading(false);
   };
 

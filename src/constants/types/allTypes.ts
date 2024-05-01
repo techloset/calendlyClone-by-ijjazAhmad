@@ -64,3 +64,28 @@ export type userState={
   isSuccess: boolean,
   isLoading: boolean,
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type HeadingProps={
+  text:string
+  size:string
+}
+export type TextWithIconProps={
+  text:string | null,
+  src:string
+}

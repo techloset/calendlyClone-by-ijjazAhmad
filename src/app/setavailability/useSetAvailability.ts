@@ -41,7 +41,6 @@ export const useSetAvailability = () => {
   };
   const handelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setstate((s) => ({ ...s, [e.target.name]: parseInt(e.target.value) }));
-    
   };
   const handleDays = (e: React.ChangeEvent<HTMLInputElement>) => {
     const day = e.target.name;
@@ -60,7 +59,7 @@ export const useSetAvailability = () => {
       return toast.error("Plz select day");
     }
     setisLoading(true);
-    await dispatch(setAvailabilityFun({ startHour, endHour,days,id }) as any);
+    await dispatch(setAvailabilityFun({ startHour, endHour, days, id }) as any);
     try {
       setisLoading(false);
       router.push("/");

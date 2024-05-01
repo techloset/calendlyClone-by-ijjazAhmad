@@ -17,7 +17,7 @@ export default function PrimaryBtn({ loading, onClick, label }: btnType) {
         </button>
       ) : (
         <button
-          type="submit"
+          type="button"
           onClick={onClick}
           className="  text-white-default bg-primary rounded-[40px] px-[17px] py-[11px]  "
         >

@@ -16,7 +16,6 @@ export const signupFun = createAsyncThunk(
       });
       toast.success(`${response.data.message}`);
     } catch (error: AxiosError | any) {
-      console.log(error);
       toast.error(`${error?.response?.data.message}`);
     }
   }

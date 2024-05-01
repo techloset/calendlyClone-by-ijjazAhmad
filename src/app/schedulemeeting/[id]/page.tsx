@@ -15,8 +15,8 @@ type availabilityProps = {
   createdAt: String;
   updateAt: String;
   user: {
-    fullname:string,
-    email:string,
+    fullname: string;
+    email: string;
   };
 };
 const initialState: availabilityProps = {
@@ -28,8 +28,8 @@ const initialState: availabilityProps = {
   createdAt: "",
   updateAt: "",
   user: {
-    fullname:"" ,
-    email:"",
+    fullname: "",
+    email: "",
   },
 };
 export default function page() {
@@ -50,7 +50,6 @@ export default function page() {
       setParamUserAvailability(userAvailabObj);
       setisLoading(true);
     } catch (error: AxiosError | any) {
-      console.log(error);
       toast.error(`${error?.response?.data.message}`);
       setisLoading(false);
     }
@@ -58,9 +57,7 @@ export default function page() {
 
   return (
     <div className="flex flex-wrap justify-center items-center flex-col w-full">
-      {!loading ? (
-        <MeetingPromptCard name={path.id} onClick={onSubmit} />
-      ) : (
+      {loading ? (
         <ScheduleMeeting
           days={paramUserAvailability.days}
           endHour={paramUserAvailability.endHour}
@@ -69,6 +66,8 @@ export default function page() {
           hostEmail={paramUserAvailability.user.email}
           path={id}
         />
+      ) : (
+        <MeetingPromptCard name={path.id} onClick={onSubmit} />
       )}
     </div>
   );

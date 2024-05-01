@@ -2,15 +2,8 @@
 import Link from "next/link";
 import PrimaryBtn from "../button/PrimaryBtn";
 import { useSignupForm } from "./useSignupForm";
-// import { redirect } from "next/navigation";
-// import { getSession } from "next-auth/react";
-
-export default  function SignupForm() {
+export default function SignupForm() {
   const { loading, onSubmit, errors, register, handleSubmit } = useSignupForm();
-  // const session = await getSession();
-  // if (!session) {
-  //   redirect("/");
-  // }
   return (
     <form className="px-[33px] mb-[33px] py-[33px] border border-borderClr-1 shadow-2 rounded-md w-[95%] sm:w-[440px] ">
       <div className="mb-[12px]">
@@ -46,15 +39,6 @@ export default  function SignupForm() {
             {errors.fullname.message}
           </p>
         )}
-        {/* <InputZ
-          fieldName="fullname"
-          label="Enter your full name"
-          placeholder="fullname"
-          register={register}
-          type="text"
-          errors={errors.fullname}
-          message={errors?.fullname?.message}
-        /> */}
       </div>
       <div className="mb-[12px]">
         <label className="text-black font-bold text-sm" htmlFor="userName">
@@ -100,11 +84,10 @@ export default  function SignupForm() {
       </p>
 
       <p className="mt-[27px] mb-[12px] font-normal text-[12px] text-center">
-        By creating a Calendly account, you agree to{" "}
-        <span className="text-primary">Calendly's Terms</span> and{" "}
+        By creating a Calendly account, you agree to
+        <span className="text-primary">Calendlys Terms</span> and
         <span className="text-primary ">Privacy Policy</span>
       </p>
-
       <div className="text-center">
         <PrimaryBtn
           loading={loading}
