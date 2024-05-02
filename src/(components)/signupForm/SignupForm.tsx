@@ -2,81 +2,47 @@
 import Link from "next/link";
 import PrimaryBtn from "../button/PrimaryBtn";
 import { useSignupForm } from "./useSignupForm";
+import { signupFormData } from "@/constants/formData/formData";
+
 export default function SignupForm() {
   const { loading, onSubmit, errors, register, handleSubmit } = useSignupForm();
   return (
     <form className="px-[33px] mb-[33px] py-[33px] border border-borderClr-1 shadow-2 rounded-md w-[95%] sm:w-[440px] ">
       <div className="mb-[12px]">
-        <label htmlFor="email" className="text-black font-bold text-sm">
-          Enter your email to get started
-        </label>
-        <input
-          className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
-          style={{ outline: "none" }}
-          {...register("email")}
-          placeholder="test@gmail.com"
-          type="email"
-        />
-        {errors.email && (
-          <p className="text-danger text-[10px] font-bold">
-            {errors.email.message}
-          </p>
-        )}
+        {signupFormData.map((val, i) => {
+          return (
+            <div key={i} className="mb-[12px]">
+              <label
+                htmlFor={val.name}
+                className="text-black font-bold text-sm"
+              >
+                {val.label}
+              </label>
+              <input
+                className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
+                style={{ outline: "none" }}
+                {...register(
+                  val.name as "email" | "fullname" | "username" | "password"
+                )}
+                placeholder={val.placeholder}
+                type={val.type}
+              />
+              {errors[
+                val.name as "email" | "fullname" | "username" | "password"
+              ] && (
+                <p className="text-danger text-[10px] font-bold">
+                  {
+                    errors[
+                      val.name as "email" | "fullname" | "username" | "password"
+                    ]?.message
+                  }
+                </p>
+              )}
+            </div>
+          );
+        })}
       </div>
-      <div className="mb-[12px]">
-        <label className="text-black font-bold text-sm" htmlFor="fullname">
-          Enter your full name
-        </label>
-        <input
-          className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
-          style={{ outline: "none" }}
-          {...register("fullname")}
-          placeholder="fullname"
-          type="text"
-        />
-        {errors.fullname && (
-          <p className="text-danger text-[10px] font-bold">
-            {errors.fullname.message}
-          </p>
-        )}
-      </div>
-      <div className="mb-[12px]">
-        <label className="text-black font-bold text-sm" htmlFor="userName">
-          Enter your username
-        </label>
-        <input
-          className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
-          style={{ outline: "none" }}
-          {...register("username")}
-          placeholder="username"
-          type="text"
-        />
-        {errors.username && (
-          <p className="text-danger text-[10px] font-bold">
-            {errors.username.message}
-          </p>
-        )}
-      </div>
-
-      <div>
-        <label className="text-black font-bold text-[12px]" htmlFor="userName">
-          Choose a password with at least 8 characters
-        </label>
-        <input
-          className="px-[15px] py-[14px] mt-[8px] w-full border border-borderClr-2 rounded-lg text-black font-normal text-[16px]"
-          style={{ outline: "none" }}
-          {...register("password")}
-          placeholder="password"
-          type="password"
-        />
-        {errors.password && (
-          <p className="text-danger text-[10px] font-bold">
-            {errors.password.message}
-          </p>
-        )}
-      </div>
-
-      <div className="w-full h-[6px] bg-white-line my-3"></div>
+      <div className="w-full h-[6px] bg-white-line mb-3"></div>
 
       <p className="font-normal text-danger  text-[12px]">
         Use a few words, avoid common phrases. No need for symbols, digits, or
@@ -95,7 +61,6 @@ export default function SignupForm() {
           label="Sign Up"
         />
       </div>
-
       <Link href={"/signin"}>
         <p className="mt-[27px]  font-normal text-[12px] text-center">
           If already have an account<span className="text-primary">SignIn</span>

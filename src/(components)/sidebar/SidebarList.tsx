@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import SidebarBtn from "../button/SidebarBtn";
 import {
   adminCenter,
   analytics,
@@ -8,7 +9,29 @@ import {
   events,
   plus,
 } from "../../../public/images";
-import SidebarBtn from "../button/SidebarBtn";
+const sidebarData = [
+  {
+    href: "/scheduledevents",
+    label: "Scheduled Events",
+    src: events,
+  },
+  {
+    href: "/analytic",
+    label: "Analytics",
+    src: analytics,
+  },
+  {
+    href: "/setavailability",
+    label: "Set Availability",
+    src: clock,
+  },
+  {
+    href: "#",
+    label: "Admin Center",
+    src: adminCenter,
+  },
+];
+
 
 export default function SidebarList() {
   return (
@@ -23,32 +46,11 @@ export default function SidebarList() {
         </Link>
         <div className="relative h-[78vh] flex flex-col justify-between">
           <ul>
-            <li>
-              <SidebarBtn href={"/scheduledevents"} label={"Scheduled Events"} src={events} />
-            </li>
-            <li>
-              <SidebarBtn
-                href={"/analytic"}
-                label={"Analytics"}
-                src={analytics}
-              />
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <SidebarBtn
-                href={"/setavailability"}
-                label={"Set Availability"}
-                src={clock}
-              />
-            </li>
-            <li>
-              <SidebarBtn
-                href={"/setavailability"}
-                label={"Admin Center"}
-                src={adminCenter}
-              />
-            </li>
+            {sidebarData.map((val, i) => (
+              <li key={i}>
+                <SidebarBtn href={val.href} label={val.label} src={val.src} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>

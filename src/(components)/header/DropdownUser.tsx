@@ -3,7 +3,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { arrowDown } from "../../../public/images";
 import LogoutBtn from "../button/LogoutBtn";
-
+import SidebarBtn from "../button/SidebarBtn";
+const DropdownUserData = [
+  {
+    href: "/Profile",
+    label: "Profile",
+  },
+  {
+    href: "/scheduledevents",
+    label: "Events",
+  },
+];
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef<any>(null);
@@ -37,22 +47,11 @@ const DropdownUser = () => {
         }`}
       >
         <ul className="flex flex-col  border-b border-stroke px-8 py-7.5 ">
-          <li>
-            <Link
-              href="/profile"
-              className="flex items-center   py-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-            >
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/settings"
-              className="flex items-center   py-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-            >
-              Settings
-            </Link>
-          </li>
+          {DropdownUserData.map(({ href, label }) => (
+            <li key={href}>
+              <SidebarBtn href={href} label={label} src="" />
+            </li>
+          ))}
         </ul>
         <LogoutBtn />
       </div>
